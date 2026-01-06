@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิทยาการคำนวณ ม.3 OS</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&family=Sarabun:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Audio Element -->
+    <audio id="ui-click-sound" preload="auto">
+        <!-- Using a reliable iOS 'Tock' sound which is very similar to a clean UI select click -->
+        <source
+            src="https://raw.githubusercontent.com/extratone/iOSSystemSounds/master/System/Library/Audio/UISounds/Tock.caf"
+            type="audio/x-caf">
+        <!-- Fallback to MP3 if CAF not supported (iOS uses CAF, modern browsers support it or we add MP3 fallback) -->
+        <source
+            src="https://raw.githubusercontent.com/extratone/iOSSystemSounds/master/System/Library/Audio/UISounds/Tock.caf"
+            type="audio/wav">
+    </audio>
+
+    <!-- Top Bar (Status Bar) -->
+    <div class="top-bar">
+        <div class="left-items">
+            <span class="apple-logo"><i class="fa-brands fa-apple"></i></span>
+            <span class="app-name">Computing Science M.3</span>
+        </div>
+        <div class="right-items">
+            <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
+            <span id="clock">12:00</span>
+        </div>
+    </div>
+
+    <!-- Desktop Area -->
+    <div id="desktop">
+
+        <!-- Window: Home / About -->
+        <div class="window active" id="win-home" style="top: 10%; left: 10%;">
+            <div class="title-bar">
+                <div class="traffic-lights">
+                    <span class="close" onclick="closeWindow('win-home')"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="title">Home</div>
+            </div>
+            <div class="window-content">
+                <div class="profile-section">
+                    <img src="https://ui-avatars.com/api/?name=C+S&background=random&size=128" alt="Profile"
+                        class="profile-pic">
+                    <h1>ยินดีต้อนรับสู่<br>วิทยาการคำนวณ ม.3</h1>
+                    <p>เรียนรู้เทคโนโลยี, Data Science, IoT และการรู้เท่าทันดิจิทัล</p>
+                    <div class="tags">
+                        <span class="tag">#Coding</span>
+                        <span class="tag">#IoT</span>
+                        <span class="tag">#Data</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: Lessons / Units -->
+        <div class="window" id="win-lessons" style="top: 15%; left: 30%; display: none;">
+            <div class="title-bar">
+                <div class="traffic-lights">
+                    <span class="close" onclick="closeWindow('win-lessons')"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="title">Lessons</div>
+            </div>
+            <div class="window-content">
+                <h2>บทเรียน (Units)</h2>
+                <div class="folder-grid">
+                    <div class="folder-item">
+                        <i class="fa-solid fa-folder-open folder-icon color-blue"></i>
+                        <span>บทที่ 1: App Dev</span>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fa-solid fa-folder-open folder-icon color-yellow"></i>
+                        <span>บทที่ 2: Data</span>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fa-solid fa-folder-open folder-icon color-green"></i>
+                        <span>บทที่ 3: IoT</span>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fa-solid fa-folder-open folder-icon color-red"></i>
+                        <span>บทที่ 4: Safety</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: Works -->
+        <div class="window" id="win-works" style="top: 20%; left: 40%; display: none;">
+            <div class="title-bar">
+                <div class="traffic-lights">
+                    <span class="close" onclick="closeWindow('win-works')"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="title">Student Works</div>
+            </div>
+            <div class="window-content">
+                <div class="empty-state">
+                    <i class="fa-solid fa-box-open"></i>
+                    <p>No files found.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: Contact -->
+        <div class="window" id="win-contact" style="top: 25%; left: 50%; display: none;">
+            <div class="title-bar">
+                <div class="traffic-lights">
+                    <span class="close" onclick="closeWindow('win-contact')"></span>
+                    <span class="minimize"></span>
+                    <span class="maximize"></span>
+                </div>
+                <div class="title">Contact</div>
+            </div>
+            <div class="window-content">
+                <ul class="contact-list">
+                    <li><i class="fa-brands fa-facebook"></i> Kru Com Sci</li>
+                    <li><i class="fa-brands fa-line"></i> @kru.comsci</li>
+                    <li><i class="fa-solid fa-envelope"></i> teacher@school.ac.th</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Dock (Bottom Icons) -->
+    <div class="dock-container">
+        <div class="dock">
+            <div class="dock-item" onclick="openWindow('win-home')" title="Home">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <div class="dock-item" onclick="openWindow('win-lessons')" title="Lessons">
+                <i class="fa-solid fa-book"></i>
+            </div>
+            <div class="dock-item" onclick="openWindow('win-works')" title="Works">
+                <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="dock-item" onclick="openWindow('win-contact')" title="Contact">
+                <i class="fa-solid fa-address-card"></i>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
