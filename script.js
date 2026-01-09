@@ -1,126 +1,215 @@
-// Z-Index Management
-let highestZ = 10;
 
-function bringToFront(element) {
-    highestZ++;
-    element.style.zIndex = highestZ;
-}
-
-function openWindow(id) {
-    const win = document.getElementById(id);
-    if (!win) return;
-
-    win.style.display = 'flex';
-    bringToFront(win);
-
-    // Animation reset
-    win.style.animation = 'none';
-    win.offsetHeight; /* trigger reflow */
-    win.style.animation = 'openWindow 0.3s forwards';
-}
-
-function closeWindow(id) {
-    const win = document.getElementById(id);
-    if (win) {
-        win.style.display = 'none';
+// Quiz Data
+const quizQuestions = [
+    {
+        question: "1. Machine Learning คืออะไร?",
+        options: [
+            "การเขียนโปรแกรมด้วยกฎที่ตายตัว",
+            "การเรียนรู้ของเครื่องจากข้อมูลแบบอัตโนมัติ",
+            "การสร้างหุ่นยนต์เพื่อทำงานแทนมนุษย์",
+            "การซ่อมแซมคอมพิวเตอร์"
+        ],
+        correct: 1 // Index of correct answer
+    },
+    {
+        question: "2. NLP (Natural Language Processing) เกี่ยวข้องกับอะไร?",
+        options: [
+            "การประมวลผลวิดีโอ",
+            "การคำนวณทางคณิตศาสตร์",
+            "การเข้าใจและประมวลผลภาษามนุษย์",
+            "การเชื่อมต่อเครือข่ายไร้สาย"
+        ],
+        correct: 2
+    },
+    {
+        question: "3. Computer Vision ทำหน้าที่อะไร?",
+        options: [
+            "วิเคราะห์ภาพและวิดีโอ",
+            "วิเคราะห์เสียงพูด",
+            "สร้างข้อความอัตโนมัติ",
+            "จัดการฐานข้อมูล"
+        ],
+        correct: 0
+    },
+    {
+        question: "4. เครื่องมือใดต่อไปนี้เหมาะสำหรับการสร้างภาพจากข้อความ (Text-to-Image)?",
+        options: [
+            "ChatGPT",
+            "Midjourney",
+            "Excel",
+            "Google Translate"
+        ],
+        correct: 1
+    },
+    {
+        question: "5. 'Generative AI' มีจุดเด่นคืออะไร?",
+        options: [
+            "วิเคราะห์ข้อมูลเก่าเท่านั้น",
+            "สร้างเนื้อหาใหม่ได้ (ภาพ, ข้อความ, เสียง)",
+            "ทำงานได้เร็วกว่ามนุษย์ 100 เท่า",
+            "ใช้พลังงานน้อยกว่า AI ทั่วไป"
+        ],
+        correct: 1
+    },
+    {
+        question: "6. ใครเป็นผู้ตั้งคำถามว่า 'Can machines think?'",
+        options: [
+            "Elon Musk",
+            "Bill Gates",
+            "Alan Turing",
+            "Steve Jobs"
+        ],
+        correct: 2
+    },
+    {
+        question: "7. AI 'Deep Blue' ชนะแชมป์โลกในเกมอะไร?",
+        options: [
+            "หมากรุก (Chess)",
+            "โกะ (Go)",
+            "โป๊กเกอร์",
+            "วิดีโอเกม"
+        ],
+        correct: 0
+    },
+    {
+        question: "8. Personalized Learning ช่วยผู้เรียนอย่างไร?",
+        options: [
+            "บังคับให้เรียนเหมือนกันทุกคน",
+            "ออกแบบบทเรียนที่เหมาะกับแต่ละบุคคล",
+            "ลดเวลาเรียนเหลือ 10 นาที",
+            "แจกเกรด 4 ทุกคน"
+        ],
+        correct: 1
+    },
+    {
+        question: "9. Intelligent Tutoring System เปรียบเสมือนอะไร?",
+        options: [
+            "ห้องสมุด",
+            "ติวเตอร์ส่วนตัวที่พร้อมช่วย 24 ชม.",
+            "เครื่องคิดเลข",
+            "สมุดจดบันทึก"
+        ],
+        correct: 1
+    },
+    {
+        question: "10. ข้อใดคือประโยชน์ของ Smart Administration สำหรับครู?",
+        options: [
+            "ช่วยเพิ่มงานเอกสาร",
+            "ช่วยลดภาระงานตรวจข้อสอบและจัดตาราง",
+            "ช่วยสอนแทนครูทั้งหมด",
+            "ช่วยให้นักเรียนไม่ต้องมาโรงเรียน"
+        ],
+        correct: 1
     }
-}
+];
 
-// Draggable Logic
-function makeDraggable(element) {
-    const titleBar = element.querySelector('.title-bar');
-    let isDragging = false;
-    let startX, startY, initialLeft, initialTop;
+let currentQuestion = 0;
+let score = 0;
+let isAnswered = false;
 
-    titleBar.addEventListener('mousedown', startDrag);
-    titleBar.addEventListener('touchstart', startDrag, { passive: false });
-
-    function startDrag(e) {
-        // Prevent drag when clicking buttons
-        if (e.target.classList.contains('close') ||
-            e.target.classList.contains('minimize') ||
-            e.target.classList.contains('maximize')) return;
-
-        isDragging = true;
-        bringToFront(element);
-
-        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-
-        startX = clientX;
-        startY = clientY;
-
-        const rect = element.getBoundingClientRect();
-        initialLeft = rect.left;
-        initialTop = rect.top;
-
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag, { passive: false });
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchend', stopDrag);
-    }
-
-    function drag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-
-        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
-        const dx = clientX - startX;
-        const dy = clientY - startY;
-
-        element.style.left = `${initialLeft + dx}px`;
-        element.style.top = `${initialTop + dy}px`;
-    }
-
-    function stopDrag() {
-        isDragging = false;
-        document.removeEventListener('mousemove', drag);
-        document.removeEventListener('touchmove', drag);
-        document.removeEventListener('mouseup', stopDrag);
-        document.removeEventListener('touchend', stopDrag);
-    }
-
-    // Bring to front on click anywhere
-    element.addEventListener('mousedown', () => bringToFront(element));
-}
-
-// Initialize
+// Initialize when DOM loads
 document.addEventListener('DOMContentLoaded', () => {
-    // Make all windows draggable
-    document.querySelectorAll('.window').forEach(win => {
-        makeDraggable(win);
-    });
+    // Observer Logic (Existing)
+    const observerOptions = { threshold: 0.2 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
 
-    // Clock
-    function updateClock() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-        document.getElementById('clock').textContent = timeString;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // Theme Toggle
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const icon = themeBtn.querySelector('i');
-        if (document.body.classList.contains('dark-mode')) {
-            icon.classList.remove('fa-moon');
-            icon.classList.add('fa-sun');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-        }
-    });
-
-    // Play Sound Effect on Click
-    const clickSound = document.getElementById('ui-click-sound');
-    document.addEventListener('mousedown', () => {
-        // Reset and play to allow rapid clicks
-        clickSound.currentTime = 0;
-        clickSound.play().catch(e => console.log('Audio play failed (user interaction required first):', e));
+    const elementsToAnimate = document.querySelectorAll('.timeline-item, .info-section, .edu-card');
+    elementsToAnimate.forEach(item => {
+        observer.observe(item);
     });
 });
+
+// Quiz Functions
+function startQuiz() {
+    document.getElementById('quiz-start-screen').style.display = 'none';
+    document.getElementById('quiz-question-screen').style.display = 'block';
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    isAnswered = false;
+    const questionData = quizQuestions[currentQuestion];
+
+    document.getElementById('question-count').innerText = `ข้อที่ ${currentQuestion + 1}/${quizQuestions.length}`;
+    document.getElementById('score-display').innerText = `คะแนน: ${score}`;
+    document.getElementById('question-text').innerText = questionData.question;
+
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = '';
+
+    questionData.options.forEach((option, index) => {
+        const btn = document.createElement('div');
+        btn.classList.add('option-btn');
+        btn.innerText = option;
+        btn.onclick = () => checkAnswer(index, btn);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function checkAnswer(selectedIndex, btnElement) {
+    if (isAnswered) return;
+    isAnswered = true;
+
+    const correctIndex = quizQuestions[currentQuestion].correct;
+    const allOptions = document.querySelectorAll('.option-btn');
+
+    if (selectedIndex === correctIndex) {
+        score++;
+        btnElement.classList.add('correct');
+    } else {
+        btnElement.classList.add('wrong');
+        allOptions[correctIndex].classList.add('correct');
+    }
+
+    document.getElementById('score-display').innerText = `คะแนน: ${score}`;
+
+    // Wait and go to next question
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < quizQuestions.length) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }, 1500);
+}
+
+function showResult() {
+    document.getElementById('quiz-question-screen').style.display = 'none';
+    document.getElementById('quiz-result-screen').style.display = 'block';
+    document.getElementById('final-score').innerText = `${score}/10`;
+
+    const msg = document.getElementById('result-message');
+    if (score >= 8) msg.innerText = "ยอดเยี่ยม! คุณคือผู้เชี่ยวชาญ AI";
+    else if (score >= 5) msg.innerText = "ทำได้ดี! เรียนรู้อีกนิดคุณจะเก่งขึ้นแน่นอน";
+    else msg.innerText = "พยายามอีกนิด! ลองทบทวนเนื้อหาแล้วมาเล่นใหม่นะ";
+
+    // Prepare answer key
+    const list = document.getElementById('answer-list');
+    list.innerHTML = '';
+    quizQuestions.forEach((q, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>ข้อ ${i + 1}:</strong> ${q.options[q.correct]}`;
+        list.appendChild(li);
+    });
+}
+
+function resetQuiz() {
+    document.getElementById('quiz-result-screen').style.display = 'none';
+    document.getElementById('answer-key').style.display = 'none';
+    document.getElementById('show-answer-btn').style.display = 'inline-block';
+    startQuiz();
+}
+
+function showAnswers() {
+    document.getElementById('answer-key').style.display = 'block';
+    document.getElementById('show-answer-btn').style.display = 'none';
+}

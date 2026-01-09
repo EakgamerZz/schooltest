@@ -4,157 +4,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>วิทยาการคำนวณ ม.3 OS</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&family=Sarabun:wght@400;500&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ดิจิทัลปัญญาประดิษฐ์แบบรู้สร้าง</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for Thai support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&family=Sarabun:wght@400;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <div class="bg-glow"></div>
 
-    <!-- Audio Element -->
-    <audio id="ui-click-sound" preload="auto">
-        <!-- Using a reliable iOS 'Tock' sound which is very similar to a clean UI select click -->
-        <source
-            src="https://raw.githubusercontent.com/extratone/iOSSystemSounds/master/System/Library/Audio/UISounds/Tock.caf"
-            type="audio/x-caf">
-        <!-- Fallback to MP3 if CAF not supported (iOS uses CAF, modern browsers support it or we add MP3 fallback) -->
-        <source
-            src="https://raw.githubusercontent.com/extratone/iOSSystemSounds/master/System/Library/Audio/UISounds/Tock.caf"
-            type="audio/wav">
-    </audio>
-
-    <!-- Top Bar (Status Bar) -->
-    <div class="top-bar">
-        <div class="left-items">
-            <span class="apple-logo"><i class="fa-brands fa-apple"></i></span>
-            <span class="app-name">Computing Science M.3</span>
+    <header>
+        <h1>ดิจิทัลปัญญาประดิษฐ์แบบรู้สร้าง</h1>
+        <p class="subtitle">จากการตั้งคำถามสู่การสร้างสรรค์ที่ไร้ขีดจำกัด</p>
+        <div class="scroll-indicator">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
         </div>
-        <div class="right-items">
-            <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
-            <span id="clock">12:00</span>
-        </div>
-    </div>
+    </header>
 
-    <!-- Desktop Area -->
-    <div id="desktop">
+    <main class="timeline-section">
 
-        <!-- Window: Home / About -->
-        <div class="window active" id="win-home" style="top: 10%; left: 10%;">
-            <div class="title-bar">
-                <div class="traffic-lights">
-                    <span class="close" onclick="closeWindow('win-home')"></span>
-                    <span class="minimize"></span>
-                    <span class="maximize"></span>
-                </div>
-                <div class="title">Home</div>
-            </div>
-            <div class="window-content">
-                <div class="profile-section">
-                    <img src="https://ui-avatars.com/api/?name=C+S&background=random&size=128" alt="Profile"
-                        class="profile-pic">
-                    <h1>ยินดีต้อนรับสู่<br>วิทยาการคำนวณ ม.3</h1>
-                    <p>เรียนรู้เทคโนโลยี, Data Science, IoT และการรู้เท่าทันดิจิทัล</p>
-                    <div class="tags">
-                        <span class="tag">#Coding</span>
-                        <span class="tag">#IoT</span>
-                        <span class="tag">#Data</span>
+        <!-- What is AI Section -->
+        <section id="what-is-ai" class="info-section">
+            <h2 class="section-title">ปัญญาประดิษฐ์คืออะไร?</h2>
+            <div class="info-card">
+                <p>
+                    <strong>ปัญญาประดิษฐ์ (Artificial Intelligence หรือ AI)</strong>
+                    คือศาสตร์ที่ทำให้เครื่องจักรสามารถทำงานที่ต้องใช้ความฉลาดของมนุษย์ได้
+                    ตั้งแต่อ่านเอกสารไปจนถึงการเล่นเกมวางแผนกลยุทธ์ AI ช่วยให้เครื่องจักรเรียนรู้จากประสบการณ์
+                    ปรับตัวตามข้อมูลใหม่ และทำงานเหมือนมนุษย์
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3><a href="https://science.utcc.ac.th/blogs/machine-learning/" target="_blank"
+                                class="feature-link">Machine Learning</a></h3>
+                        <p>การเรียนรู้ของเครื่องโดยอัตโนมัติจากข้อมูลและแบบจำลองทางคณิตศาสตร์</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><a href="https://aws.amazon.com/th/what-is/nlp/" target="_blank"
+                                class="feature-link">NLP</a></h3>
+                        <p>การประมวลผลภาษาธรรมชาติ ช่วยให้คอมพิวเตอร์เข้าใจภาษามนุษย์</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><a href="https://www.dia.co.th/articles/computer-vision/" target="_blank"
+                                class="feature-link">Computer Vision</a></h3>
+                        <p>การมองเห็นของคอมพิวเตอร์ เพื่อวิเคราะห์ภาพและวิดีโอ</p>
                     </div>
                 </div>
+                <p class="source-ref">ข้อมูลอ้างอิงจาก SAS: What is Artificial Intelligence?</p>
+            </div>
+        </section>
+
+        <h2 class="section-title text-center">เส้นทางสู่อนาคต</h2>
+        <div class="timeline">
+            <!-- 1950 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">1950</span>
+                    <h3 class="timeline-title">Alan Turing</h3>
+                    <p class="timeline-desc">การตั้งคำถามสำคัญ "Can machines think?" และการนำเสนอ Turing Test
+                        เพื่อทดสอบความชาญฉลาดของเครื่องจักร</p>
+                </div>
+            </div>
+
+            <!-- 1956 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">1956</span>
+                    <h3 class="timeline-title">The Dartmouth Workshop</h3>
+                    <p class="timeline-desc">จุดกำเนิดของคำว่า "Artificial Intelligence" (AI) อย่างเป็นทางการ
+                        โดยระดมสมองนักวิจัยชั้นนำเพื่อสร้างเครื่องจักรที่สามารถคิดได้</p>
+                </div>
+            </div>
+
+            <!-- 1966 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">1966</span>
+                    <h3 class="timeline-title">ELIZA</h3>
+                    <p class="timeline-desc">แชทบอทตัวแรกของโลกที่จำลองการสนทนาของนักจิตบำบัด
+                        แสดงให้เห็นถึงศักยภาพของการประมวลผลภาษาธรรมชาติ (NLP)</p>
+                </div>
+            </div>
+
+            <!-- 1997 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">1997</span>
+                    <h3 class="timeline-title">Deep Blue</h3>
+                    <p class="timeline-desc">ซูเปอร์คอมพิวเตอร์จาก IBM เอาชนะ Garry Kasparov แชมป์โลกหมากรุก
+                        เป็นครั้งแรกที่ AI เอาชนะมนุษย์ในเกมที่ซับซ้อน</p>
+                </div>
+            </div>
+
+            <!-- 2011 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">2011</span>
+                    <h3 class="timeline-title">Siri & Watson</h3>
+                    <p class="timeline-desc">Apple เปิดตัว Siri ผู้ช่วยอัจฉริยะ และ IBM Watson ชนะรายการ Jeopardy!
+                        แสดงให้เห็นถึงความก้าวหน้าในการเข้าใจภาษาและบริบท</p>
+                </div>
+            </div>
+
+            <!-- 2016 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">2016</span>
+                    <h3 class="timeline-title">AlphaGo</h3>
+                    <p class="timeline-desc">AI ของ Google DeepMind เอาชนะ Lee Sedol แชมป์โลกเกม Go
+                        ซึ่งเป็นเกมที่มีความซับซ้อนและเป็นไปได้มากกว่าจำนวนอะตอมในจักรวาล</p>
+                </div>
+            </div>
+
+            <!-- 2017 -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">2017</span>
+                    <h3 class="timeline-title">Transformer Architecture</h3>
+                    <p class="timeline-desc">Google เปิดตัวเปเปอร์ "Attention Is All You Need" ปูทางสู่โมเดลภาษาขนาดใหญ่
+                        (LLM) ในปัจจุบัน</p>
+                </div>
+            </div>
+
+            <!-- 2022+ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">2022 - ปัจจุบัน</span>
+                    <h3 class="timeline-title">Generative AI Era</h3>
+                    <p class="timeline-desc">การมาถึงของ ChatGPT, Midjourney และ Gemini เปลี่ยนแปลงโลกด้วยการ "สร้าง"
+                        เนื้อหาใหม่ ไม่ใช่แค่การวิเคราะห์ ยุคแห่ง AI ที่รู้สร้างเริ่มต้นขึ้นอย่างแท้จริง</p>
+                </div>
+            </div>
+
+            <!-- Infographics Trend -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">Trend</span>
+                    <h3 class="timeline-title">การนำเสนองานด้วยอินโฟกราฟิก</h3>
+                    <p class="timeline-desc">AI
+                        ยกระดับการเรียนการสอนโดยการแปลงข้อมูลที่ซับซ้อนให้เป็นภาพที่เข้าใจง่ายและสวยงาม เครื่องมืออย่าง
+                        <strong>Canva Magic Design</strong> หรือ <strong>Piktochart AI</strong>
+                        ช่วยให้ครูและนักเรียนสร้างสื่ออินโฟกราฟิกคุณภาพสูงได้ในเวลาอันสั้น
+                        กระตุ้นการเรียนรู้และการจดจำได้อย่างมีประสิทธิภาพ</p>
+                </div>
             </div>
         </div>
 
-        <!-- Window: Lessons / Units -->
-        <div class="window" id="win-lessons" style="top: 15%; left: 30%; display: none;">
-            <div class="title-bar">
-                <div class="traffic-lights">
-                    <span class="close" onclick="closeWindow('win-lessons')"></span>
-                    <span class="minimize"></span>
-                    <span class="maximize"></span>
+        <!-- AI in Education Section -->
+        <section id="ai-education" class="info-section">
+            <h2 class="section-title">ปัญญาประดิษฐ์เพื่อการเรียนการสอน</h2>
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <div class="edu-icon">🎓</div>
+                    <h3><a href="https://www.sas.com/th_th/insights/analytics/what-is-artificial-intelligence.html"
+                            target="_blank" class="edu-link">Personalized Learning</a></h3>
+                    <p>AI ช่วยวิเคราะห์จุดแข็งและจุดอ่อนของผู้เรียน เพื่อออกแบบบทเรียนที่เหมาะสมกับแต่ละบุคคล
+                        ทำให้การเรียนรู้มีประสิทธิภาพสูงสุด</p>
                 </div>
-                <div class="title">Lessons</div>
+                <div class="edu-card">
+                    <div class="edu-icon">🤖</div>
+                    <h3><a href="https://ltic.kku.ac.th/what-is-generative-ai/" target="_blank"
+                            class="edu-link">Intelligent Tutoring</a></h3>
+                    <p>ระบบติวเตอร์อัจฉริยะที่พร้อมให้คำปรึกษาและตอบคำถามนักเรียนได้ตลอด 24 ชั่วโมง
+                        ช่วยลดช่องว่างในการเข้าถึงความรู้</p>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-icon">📊</div>
+                    <h3><a href="https://www.depa.or.th/th/article-view/tech-series-artificial-intelligence-ai"
+                            target="_blank" class="edu-link">Smart Administration</a></h3>
+                    <p>ช่วยครูอาจารย์ในการตรวจข้อสอบ จัดตารางเรียน และงานธุรการ
+                        ทำให้มีเวลาโฟกัสกับการสอนและการดูแลนักเรียนมากขึ้น</p>
+                </div>
             </div>
-            <div class="window-content">
-                <h2>บทเรียน (Units)</h2>
-                <div class="folder-grid">
-                    <div class="folder-item">
-                        <i class="fa-solid fa-folder-open folder-icon color-blue"></i>
-                        <span>บทที่ 1: App Dev</span>
+        </section>
+
+        <!-- AI Tools Section -->
+        <section id="ai-tools" class="info-section">
+            <h2 class="section-title text-center">เครื่องมือ AI สำหรับสร้างห้องเรียนยุคใหม่</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>📝 Planning & Curriculum</h3>
+                    <p>ใช้ <strong>ChatGPT</strong> หรือ <strong>Gemini</strong> ช่วยออกแบบแผนการสอน ร่างหลักสูตร
+                        และคิดกิจกรรมการเรียนรู้ที่สร้างสรรค์ได้ในไม่กี่นาที</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎨 Visual & Media</h3>
+                    <p>สร้างสื่อการสอนที่สวยงามด้วย <strong>Canva Magic Studio</strong> หรือ <strong>Midjourney</strong>
+                        เพื่อดึงดูดความสนใจของผู้เรียนด้วยภาพประกอบที่ไม่ซ้ำใคร</p>
+                </div>
+                <div class="feature-item">
+                    <h3>🎮 Engagement & Quiz</h3>
+                    <p>สร้างแบบทดสอบและเกมการเรียนรู้ได้ทันทีด้วย <strong>Quizizz AI</strong> หรือ
+                        <strong>Kahoot!</strong> ช่วยแปลงเนื้อหาบทเรียนให้เป็นกิจกรรมที่สนุกสนาน
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz-section" class="info-section">
+            <h2 class="section-title text-center">ทดสอบความรู้: AI Challenge</h2>
+            <div class="info-card quiz-container">
+                <div id="quiz-start-screen" class="text-center">
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">ทดสอบความเข้าใจเกี่ยวกับ Machine Learning, NLP
+                        และ Computer Vision (10 ข้อ)</p>
+                    <button class="quiz-btn" onclick="startQuiz()">เริ่มทำแบบทดสอบ</button>
+                </div>
+
+                <div id="quiz-question-screen" style="display: none;">
+                    <div class="quiz-header">
+                        <span id="question-count">ข้อที่ 1/10</span>
+                        <span id="score-display">คะแนน: 0</span>
                     </div>
-                    <div class="folder-item">
-                        <i class="fa-solid fa-folder-open folder-icon color-yellow"></i>
-                        <span>บทที่ 2: Data</span>
+                    <div class="question-text" id="question-text">
+                        <!-- Question goes here -->
                     </div>
-                    <div class="folder-item">
-                        <i class="fa-solid fa-folder-open folder-icon color-green"></i>
-                        <span>บทที่ 3: IoT</span>
-                    </div>
-                    <div class="folder-item">
-                        <i class="fa-solid fa-folder-open folder-icon color-red"></i>
-                        <span>บทที่ 4: Safety</span>
+                    <div class="options-grid" id="options-container">
+                        <!-- Options go here -->
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Window: Works -->
-        <div class="window" id="win-works" style="top: 20%; left: 40%; display: none;">
-            <div class="title-bar">
-                <div class="traffic-lights">
-                    <span class="close" onclick="closeWindow('win-works')"></span>
-                    <span class="minimize"></span>
-                    <span class="maximize"></span>
-                </div>
-                <div class="title">Student Works</div>
-            </div>
-            <div class="window-content">
-                <div class="empty-state">
-                    <i class="fa-solid fa-box-open"></i>
-                    <p>No files found.</p>
+                <div id="quiz-result-screen" style="display: none; text-align: center;">
+                    <h3>สรุปผลคะแนน</h3>
+                    <div class="final-score" id="final-score">0/10</div>
+                    <p id="result-message">เยี่ยมมาก!</p>
+                    <button class="quiz-btn" onclick="resetQuiz()">ทำแบบทดสอบอีกครั้ง</button>
+                    <div id="answer-key" class="answer-key text-left" style="margin-top: 2rem; display: none;">
+                        <h4>เฉลยคำตอบ:</h4>
+                        <ul id="answer-list">
+                            <!-- Answer list items -->
+                        </ul>
+                    </div>
+                    <button class="quiz-btn secondary" onclick="showAnswers()" id="show-answer-btn"
+                        style="margin-top: 1rem;">ดูเฉลย</button>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <!-- Window: Contact -->
-        <div class="window" id="win-contact" style="top: 25%; left: 50%; display: none;">
-            <div class="title-bar">
-                <div class="traffic-lights">
-                    <span class="close" onclick="closeWindow('win-contact')"></span>
-                    <span class="minimize"></span>
-                    <span class="maximize"></span>
-                </div>
-                <div class="title">Contact</div>
-            </div>
-            <div class="window-content">
-                <ul class="contact-list">
-                    <li><i class="fa-brands fa-facebook"></i> Kru Com Sci</li>
-                    <li><i class="fa-brands fa-line"></i> @kru.comsci</li>
-                    <li><i class="fa-solid fa-envelope"></i> teacher@school.ac.th</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Dock (Bottom Icons) -->
-    <div class="dock-container">
-        <div class="dock">
-            <div class="dock-item" onclick="openWindow('win-home')" title="Home">
-                <i class="fa-solid fa-house"></i>
-            </div>
-            <div class="dock-item" onclick="openWindow('win-lessons')" title="Lessons">
-                <i class="fa-solid fa-book"></i>
-            </div>
-            <div class="dock-item" onclick="openWindow('win-works')" title="Works">
-                <i class="fa-solid fa-briefcase"></i>
-            </div>
-            <div class="dock-item" onclick="openWindow('win-contact')" title="Contact">
-                <i class="fa-solid fa-address-card"></i>
-            </div>
-        </div>
-    </div>
+    <footer style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+        <p>© 2026 Evolution of AI. Created by Antigravity.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
